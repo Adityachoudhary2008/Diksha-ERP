@@ -1,31 +1,41 @@
-const express = require("express")
-const cors = require("cors")
-const mongoose = require("mongoose")
-const dotenv = require("dotenv")
-// const bodyParser = require("body-parser")
-const app = express()
-const Routes = require("./routes/route.js")
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-const PORT = process.env.PORT || 5000
+dotenv.config(); // ✅ env sabse upar load
 
-dotenv.config();
+const app = express();
+const Routes = require("./routes/route.js");
 
-// app.use(bodyParser.json({ limit: '10mb', extended: true }))
-// app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
+const PORT = process.env.PORT || 5000;
 
-app.use(express.json({ limit: '10mb' }))
-app.use(cors())
+// Middlewares
+app.use(express.json({ limit: "10mb" }));
+app.use(cors());
 
+// MongoDB Connection
 mongoose
-    .connect(process.env.MONGO_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(console.log("Connected to MongoDB"))
-    .catch((err) => console.log("NOT CONNECTED TO NETWORK", err))
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("✅ Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB connection failed:", err.message);
+  });
 
-app.use('/', Routes);
+// Routes
+app.use("/api", Routes);
 
+
+app.get("/", (req, res) => {
+  res.send("Dikhsha ERP Backend is running 🚀");
+});
+
+// Start server
 app.listen(PORT, () => {
-    console.log(`Server started at port no. ${PORT}`)
-})
+  console.log(`🚀 Server started on port ${PORT}`);
+});
