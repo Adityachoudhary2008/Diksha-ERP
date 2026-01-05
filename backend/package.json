@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "build":"npm i",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Aditya Choudhary",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
