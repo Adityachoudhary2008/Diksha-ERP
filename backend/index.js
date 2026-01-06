@@ -30,7 +30,7 @@ mongoose
 // Routes
 app.use("/api", Routes);
 
-// Health check (Railway ke liye helpful)
+
 app.get("/", (req, res) => {
   res.send("Dikhsha ERP Backend is running 🚀");
 });
